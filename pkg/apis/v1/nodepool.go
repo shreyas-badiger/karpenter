@@ -119,6 +119,14 @@ type Budget struct {
 	// +kubebuilder:validation:Type="string"
 	// +optional
 	Duration *metav1.Duration `json:"duration,omitempty" hash:"ignore"`
+	// ConsolidateAfter is the duration the controller will wait
+	// before attempting to terminate nodes that are underutilized.
+	// Refer to ConsolidationPolicy for how underutilization is considered.
+	// +kubebuilder:validation:Pattern=`^(([0-9]+(s|m|h))+|Never)$`
+	// +kubebuilder:validation:Type="string"
+	// +kubebuilder:validation:Schemaless
+	// +required
+	ConsolidateAfter NillableDuration `json:"consolidateAfter"`
 }
 
 type ConsolidationPolicy string
